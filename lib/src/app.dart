@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:supabase_school_app/src/pages/account_page.dart';
 import 'package:supabase_school_app/src/pages/login_page.dart';
 import 'package:supabase_school_app/src/pages/register_page.dart';
-import 'package:supabase_school_app/src/pages/splash_page.dart';
+import 'package:supabase_school_app/src/pages/main_page.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -25,8 +25,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: <String, WidgetBuilder>{
-        // Splash page is needed to ensure that authentication and page loading works correctly
-        '/': (_) => const SplashPage(),
+        '/': (_) => const MainPage(),
         '/login': (_) => const LoginPage(),
         '/register': (_) => const RegisterPage(),
         '/account': (_) => const AccountPage(),

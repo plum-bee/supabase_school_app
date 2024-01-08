@@ -37,15 +37,19 @@ class _AccountPageState extends State<AccountPage> {
       _emailController.text = (data['email'] ?? '') as String;
       _avatarUrl = (data['avatar_url'] ?? '') as String;
     } on PostgrestException catch (error) {
-      SnackBar(
-        content: Text(error.message),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      );
+      if (mounted) {
+        SnackBar(
+          content: Text(error.message),
+          backgroundColor: Theme.of(context).colorScheme.error,
+        );
+      }
     } catch (error) {
-      SnackBar(
-        content: const Text('Unexpected error occurred'),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      );
+      if (mounted) {
+        SnackBar(
+          content: const Text('Unexpected error occurred'),
+          backgroundColor: Theme.of(context).colorScheme.error,
+        );
+      }
     } finally {
       if (mounted) {
         setState(() {
@@ -64,15 +68,19 @@ class _AccountPageState extends State<AccountPage> {
       final data = await supabase.from('subject').select('id, name');
       allSubjects = List<Map<String, dynamic>>.from(data as List);
     } on PostgrestException catch (error) {
-      SnackBar(
-        content: Text(error.message),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      );
+      if (mounted) {
+        SnackBar(
+          content: Text(error.message),
+          backgroundColor: Theme.of(context).colorScheme.error,
+        );
+      }
     } catch (error) {
-      SnackBar(
-        content: const Text('Unexpected error occurred'),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      );
+      if (mounted) {
+        SnackBar(
+          content: const Text('Unexpected error occurred'),
+          backgroundColor: Theme.of(context).colorScheme.error,
+        );
+      }
     } finally {
       if (mounted) {
         setState(() {
@@ -98,15 +106,19 @@ class _AccountPageState extends State<AccountPage> {
         userSchedule = List<Map<String, dynamic>>.from(data as List);
       });
     } on PostgrestException catch (error) {
-      SnackBar(
-        content: Text(error.message),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      );
+      if (mounted) {
+        SnackBar(
+          content: Text(error.message),
+          backgroundColor: Theme.of(context).colorScheme.error,
+        );
+      }
     } catch (error) {
-      SnackBar(
-        content: const Text('Unexpected error occurred'),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      );
+      if (mounted) {
+        SnackBar(
+          content: const Text('Unexpected error occurred'),
+          backgroundColor: Theme.of(context).colorScheme.error,
+        );
+      }
     } finally {
       if (mounted) {
         setState(() {
@@ -120,7 +132,7 @@ class _AccountPageState extends State<AccountPage> {
     if (_selectedSubject != null) {
       try {
         final int subjectId = int.parse(_selectedSubject!);
-        final response = await supabase.from('professor_subject').insert({
+        await supabase.from('professor_subject').insert({
           'professor_id': supabase.auth.currentSession!.user.id,
           'subject_id': subjectId,
           'schedule': _selectedDate.toIso8601String(),
@@ -128,16 +140,18 @@ class _AccountPageState extends State<AccountPage> {
 
         await _getSchedule();
       } catch (error) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to add schedule: $error')),
-        );
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Failed to add schedule: $error')),
+          );
+        }
       }
     }
   }
 
   Future<void> _deleteUserSchedule(int subjectId, String schedule) async {
     try {
-      final response = await supabase.from('professor_subject').delete().match({
+      await supabase.from('professor_subject').delete().match({
         'professor_id': supabase.auth.currentSession!.user.id,
         'subject_id': subjectId,
         'schedule': schedule,
@@ -145,9 +159,11 @@ class _AccountPageState extends State<AccountPage> {
 
       await _getSchedule();
     } catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to delete schedule: $error')),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to delete schedule: $error')),
+        );
+      }
     }
   }
 
@@ -187,15 +203,19 @@ class _AccountPageState extends State<AccountPage> {
         );
       }
     } on PostgrestException catch (error) {
-      SnackBar(
-        content: Text(error.message),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      );
+      if (mounted) {
+        SnackBar(
+          content: Text(error.message),
+          backgroundColor: Theme.of(context).colorScheme.error,
+        );
+      }
     } catch (error) {
-      SnackBar(
-        content: const Text('Unexpected error occurred'),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      );
+      if (mounted) {
+        SnackBar(
+          content: const Text('Unexpected error occurred'),
+          backgroundColor: Theme.of(context).colorScheme.error,
+        );
+      }
     } finally {
       if (mounted) {
         setState(() {
@@ -209,15 +229,19 @@ class _AccountPageState extends State<AccountPage> {
     try {
       await supabase.auth.signOut();
     } on AuthException catch (error) {
-      SnackBar(
-        content: Text(error.message),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      );
+      if (mounted) {
+        SnackBar(
+          content: Text(error.message),
+          backgroundColor: Theme.of(context).colorScheme.error,
+        );
+      }
     } catch (error) {
-      SnackBar(
-        content: const Text('Unexpected error occurred'),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      );
+      if (mounted) {
+        SnackBar(
+          content: const Text('Unexpected error occurred'),
+          backgroundColor: Theme.of(context).colorScheme.error,
+        );
+      }
     } finally {
       if (mounted) {
         Navigator.of(context).pushReplacementNamed('/login');
@@ -238,15 +262,19 @@ class _AccountPageState extends State<AccountPage> {
         );
       }
     } on PostgrestException catch (error) {
-      SnackBar(
-        content: Text(error.message),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      );
+      if (mounted) {
+        SnackBar(
+          content: Text(error.message),
+          backgroundColor: Theme.of(context).colorScheme.error,
+        );
+      }
     } catch (error) {
-      SnackBar(
-        content: const Text('Unexpected error occurred'),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      );
+      if (mounted) {
+        SnackBar(
+          content: const Text('Unexpected error occurred'),
+          backgroundColor: Theme.of(context).colorScheme.error,
+        );
+      }
     }
     if (!mounted) {
       return;
@@ -278,88 +306,92 @@ class _AccountPageState extends State<AccountPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
-        backgroundColor: Colors.indigo,
-        elevation: 2,
+        backgroundColor: Colors.indigo.shade800, // A bit darker shade for depth
+        elevation: 4, // Slightly more elevation for a "lifted" effect
       ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
               child: Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
+                    const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
                 child: Column(
                   children: [
                     Avatar(
                       imageUrl: _avatarUrl,
                       onUpload: _onUpload,
                     ),
-                    const SizedBox(height: 18),
-                    ...[
-                      _buildTextFormFieldCard(_fullNameController, 'Full Name'),
-                      const SizedBox(height: 5),
-                      _buildTextFormFieldCard(_emailController, 'Email'),
-                    ],
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 24),
+                    _buildTextFormFieldCard(_fullNameController, 'Full Name'),
+                    const SizedBox(height: 16),
+                    _buildTextFormFieldCard(_emailController, 'Email'),
+                    const SizedBox(height: 24),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                        backgroundColor: Colors.indigo,
+                        backgroundColor: Colors.deepPurple,
                         padding: const EdgeInsets.symmetric(
-                          vertical: 12.0,
-                          horizontal: 24.0,
+                          vertical: 14.0,
+                          horizontal: 36.0,
                         ),
                       ),
                       onPressed: _loading ? null : _updateProfile,
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Text(_loading ? 'Saving...' : 'Update Profile'),
+                      child: Text(
+                        _loading ? 'Saving...' : 'Update Profile',
+                        style: const TextStyle(fontSize: 16),
                       ),
                     ),
-                    const SizedBox(height: 18),
-                    const Divider(),
-                    const SizedBox(height: 18),
+                    const SizedBox(height: 24),
+                    const Divider(thickness: 1),
+                    const SizedBox(height: 24),
                     const Text(
                       'My Schedule',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
+                        color: Colors.indigo,
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 16),
                     ...userSchedule
                         .map((scheduleItem) =>
                             _buildScheduleCard(scheduleItem, context))
                         .toList(),
-                    const SizedBox(height: 18),
+                    const SizedBox(height: 24),
                     _buildDropdownButton(),
-                    const SizedBox(height: 3),
+                    const SizedBox(height: 8),
                     _buildDateSelectionTile(context),
-                    const SizedBox(height: 18),
+                    const SizedBox(height: 24),
                     ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          backgroundColor: Colors.indigo,
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 12.0,
-                            horizontal: 24.0,
-                          ),
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                        onPressed: () => _addUserSchedule(),
-                        child: const Padding(
-                          padding: EdgeInsets.all(12.0),
-                          child: Text('Add to Schedule'),
-                        )),
+                        backgroundColor: Colors.deepPurple,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 14.0,
+                          horizontal: 36.0,
+                        ),
+                      ),
+                      onPressed: () => _addUserSchedule(),
+                      child: const Text(
+                        'Add to Schedule',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
                     const SizedBox(height: 36),
                     TextButton(
-                        onPressed: _signOut,
-                        child: const Text(
-                          'Sign Out',
-                          style: TextStyle(color: Colors.red),
-                        )),
+                      onPressed: _signOut,
+                      child: const Text(
+                        'Sign Out',
+                        style: TextStyle(
+                          color: Colors.redAccent,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
