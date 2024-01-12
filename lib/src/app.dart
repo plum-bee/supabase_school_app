@@ -3,8 +3,10 @@ import 'package:supabase_school_app/src/pages/account_page.dart';
 import 'package:supabase_school_app/src/pages/login_page.dart';
 import 'package:supabase_school_app/src/pages/register_page.dart';
 import 'package:supabase_school_app/src/pages/main_page.dart';
+import 'package:supabase_school_app/src/pages/splash_screen.dart';
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,7 +27,8 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: <String, WidgetBuilder>{
-        '/': (_) => const MainPage(),
+        '/': (_) => const SplashScreen(),
+        '/main': (_) => const MainPage(),
         '/login': (_) => const LoginPage(),
         '/register': (_) => const RegisterPage(),
         '/account': (_) => const AccountPage(),

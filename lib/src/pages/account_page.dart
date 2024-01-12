@@ -306,8 +306,8 @@ class _AccountPageState extends State<AccountPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
-        backgroundColor: Colors.indigo.shade800, // A bit darker shade for depth
-        elevation: 4, // Slightly more elevation for a "lifted" effect
+        backgroundColor: Colors.indigo.shade800,
+        elevation: 4,
       ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
@@ -453,7 +453,7 @@ class _AccountPageState extends State<AccountPage> {
             IconButton(
               icon: const Icon(Icons.delete),
               onPressed: () => _deleteUserSchedule(subjectId, schedule),
-              color: Theme.of(context).errorColor,
+              color: Theme.of(context).colorScheme.error,
             ),
           ],
         ),
