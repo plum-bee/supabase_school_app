@@ -34,10 +34,12 @@ class _RegisterPageState extends State<RegisterPage> {
       );
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Sign up successful!')),
+          const SnackBar(
+              content: Text('Sign up successful, check your email!')),
         );
         _emailController.clear();
         _passwordController.clear();
+        Navigator.of(context).pushReplacementNamed('/login');
       }
     } on AuthException catch (error) {
       if (mounted) {
@@ -95,7 +97,7 @@ class _RegisterPageState extends State<RegisterPage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context).pushReplacementNamed('/');
+            Navigator.of(context).pushReplacementNamed('/main');
           },
         ),
         backgroundColor: Colors.grey.shade900,
