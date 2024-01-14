@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:supabase_school_app/components/avatar_component.dart';
 import 'package:supabase_school_app/main.dart';
+import 'package:intl/intl.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -168,16 +169,28 @@ class _AccountPageState extends State<AccountPage> {
   }
 
   Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
+    final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: _selectedDate,
       firstDate: DateTime.now(),
       lastDate: DateTime(2101),
     );
-    if (picked != null && picked != _selectedDate) {
-      setState(() {
-        _selectedDate = picked;
-      });
+    if (pickedDate != null) {
+      final TimeOfDay? pickedTime = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.fromDateTime(_selectedDate),
+      );
+      if (pickedTime != null) {
+        setState(() {
+          _selectedDate = DateTime(
+            pickedDate.year,
+            pickedDate.month,
+            pickedDate.day,
+            pickedTime.hour,
+            pickedTime.minute,
+          );
+        });
+      }
     }
   }
 
@@ -488,7 +501,7 @@ class _AccountPageState extends State<AccountPage> {
     return ListTile(
       title: const Text("Select Date"),
       subtitle: Text(
-        "${_selectedDate.toLocal()}",
+        DateFormat('dd/MM/yyyy HH:mm').format(_selectedDate.toLocal()),
         style: const TextStyle(
           fontSize: 14,
           color: Colors.grey,

@@ -24,8 +24,6 @@ create table professor_subject (
   primary key (professor_id, subject_id)
 );
 
-
-
 -- Set up Row Level Security (RLS)
 -- See https://supabase.com/docs/guides/auth/row-level-security for more details.
 alter table professor
